@@ -1,0 +1,52 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+
+interface UserBCIRepository{
+  +findByEmail(email:String)
+}
+
+interface UserBCIService{
+      +findAll():List<UserBCI>
+      +save(userBCI:UserBCI):UserBCI
+      +validateIfUserCBIExist(email:String):void
+}
+
+class UserBCIController{
+      -userBCIService:UserBCIService
+      +save(request:Request)
+      +findAll()
+
+}
+
+interface UserBCIServiceImpl{
+      -userBCIRepository:UserBCIRepository
+      +findAll():List<UserBCI>
+      +save(userBCI:UserBCI):UserBCI
+      +validateIfUserCBIExist(email:String):void
+}
+
+class Phone{
+    - id:UUID;
+    - number:Long;
+    - citycode:Integer;
+    - contrycode:String;
+}
+
+class UserBCI{
+    - id:UUID;
+    - name:Long;
+    - password:String;
+    - email:String;
+    - phones:List<Phone>
+}
+
+UserBCI  <--* Phone
+UserBCIRepository  ..> UserBCI
+UserBCIService..>UserBCI
+UserBCIController..>UserBCI
+UserBCIController --> "1" UserBCIService
+UserBCIServiceImpl ..|> UserBCIService
+UserBCIServiceImpl --> "1" UserBCIRepository
+UserBCIController --> UserBCI
+@enduml

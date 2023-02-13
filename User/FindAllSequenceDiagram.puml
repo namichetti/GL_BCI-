@@ -1,0 +1,21 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+User-> UserBCIController: findAll()
+
+UserBCIController -> UserBCIService: findAll()
+
+    UserBCIService-> UserBCIRepository: findAll()
+    UserBCIRepository -> UserBCIService: userBCIS:UserBCI[*]
+
+UserBCIService -> UserBCIController: userBCIS:UserBCI[*]
+
+rnote over UserBCIController
+Sea mapea entidades a DTO de response.
+
+endrnote
+
+
+UserBCIController -> User: response:Response
+@enduml

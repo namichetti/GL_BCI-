@@ -1,0 +1,56 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+User-> UserBCIController: save(request:Request)
+
+alt Request correcto
+UserBCIController -> UserBCIService: validateIfUserCBIExist(request.getEmail():String)
+
+    UserBCIService-> UserBCIRepository: findByEmail(email:String)
+    rnote over UserBCIService
+     Se verifica si userBCI es nulo.
+     Si es nulo arroja excepción.
+
+
+    endrnote
+
+    UserBCIRepository -> UserBCIService: userBCI:UserBCI
+
+
+
+UserBCIService -> UserBCIController:
+    alt Usuario no existe en la DB
+
+
+rnote over UserBCIController
+Sea mapea DTO Request a entidad.
+
+endrnote
+
+UserBCIController --> UserBCIService: save(userBCI:UserCBI)
+
+    UserBCIService-> UserBCIRepository: save(userBCI:UserBCI)
+
+    UserBCIRepository -> UserBCIService: userBCI:UserBCI
+
+UserBCIService -> UserBCIController:userBCI:UserBCI
+
+
+rnote over UserBCIController
+Sea mapea entidad en DTO Response.
+
+endrnote
+
+UserBCIController -> User: response:Response
+else Usuario existe en la DB
+
+UserBCIController -> User:code: String + detail:String + timestamp: TimeStamp
+
+end
+
+else Request incorrecto
+UserBCIController -> User:code: String + detail:String + timestamp: TimeStamp
+
+end
+@enduml
