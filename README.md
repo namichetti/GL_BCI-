@@ -26,7 +26,7 @@ http://localhost:{PORT}/sign-up
 
 - Loguea un usuario y devuelve token (entre otros parámetros). 
 ```sh
-http://localhost:{PORT}/sign-up
+http://localhost:{PORT}/login
 ```
 
 - Devuelve todos los usuarios (se debe enviar token)
