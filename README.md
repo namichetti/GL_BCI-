@@ -19,11 +19,18 @@ mvn spring-boot:run
 
 ## Endpoints
 
-- Crear un usuario. 
+- Crear un usuario (por defecto se le setea el rol "USER")
 ```sh
 http://localhost:{PORT}/sign-up
 ```
-- Devuelve todos los usuarios
+
+- Loguea un usuario y devuelve token (entre otros parámetros). 
+```sh
+http://localhost:{PORT}/sign-up
+```
+
+- Devuelve todos los usuarios (se debe enviar token)
 ```sh
 http://localhost:{PORT}/
 ```
+
